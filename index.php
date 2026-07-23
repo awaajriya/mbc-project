@@ -1729,7 +1729,7 @@ date_default_timezone_set("Asia/Jakarta");
   <header id="site-header">
     <div class="nav-inner">
       <a href="#home" class="logo">
-        <img src="logo_header.png" alt="MBC Logo" class="logo-img" />
+        <img src="assets/logo_header.png" alt="MBC Logo" class="logo-img" />
       </a>
       <nav class="nav-links">
         <a href="#home" data-en="Home">Beranda</a>
@@ -2486,7 +2486,7 @@ date_default_timezone_set("Asia/Jakarta");
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#home" class="logo">
-            <img src="logo_footer.png" alt="MBC Logo" class="footer-logo-img" />
+            <img src="assets/logo_footer.png" alt="MBC Logo" class="footer-logo-img" />
           </a>
           <p
             data-en="The official business, innovation, and entrepreneurship ecosystem of Politeknik Mardira Indonesia.">
