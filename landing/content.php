@@ -266,94 +266,108 @@
       <span class="eyebrow" data-en="Our Advantage">Keunggulan Kami</span>
       <h2 class="section-title" data-en="Why Choose MBC">Mengapa Memilih MBC</h2>
     </div>
+    <?php
+    $keunggulanItems = [];
+    if (isset($koneksi)) {
+        $result = mysqli_query($koneksi, "SELECT * FROM keunggulan WHERE aktif=1 ORDER BY posisi ASC, id DESC");
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $keunggulanItems[] = $row;
+            }
+        }
+    }
+    ?>
+
     <div class="why-grid">
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2z" />
-          </svg>
+      <?php if (!empty($keunggulanItems)): ?>
+        <?php foreach ($keunggulanItems as $item): ?>
+          <div class="why-card" data-animate="fade-up">
+            <div class="why-icon">
+              <i class="fa-solid <?= htmlspecialchars($item['icon_class']); ?>" style="font-size:24px;"></i>
+            </div>
+            <h4><?= htmlspecialchars($item['judul']); ?></h4>
+            <p><?= nl2br(htmlspecialchars($item['deskripsi'])); ?></p>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="why-card" data-animate="fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.5 1 1.3 1 2.1V16h6v-1.4c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 2z" />
+            </svg>
+          </div>
+          <h4 data-en="Innovation">Inovasi</h4>
+          <p data-en="Encouraging fresh ideas that turn into real, sustainable ventures.">Mendorong ide-ide segar menjadi usaha nyata yang berkelanjutan.</p>
         </div>
-        <h4 data-en="Innovation">Inovasi</h4>
-        <p data-en="Encouraging fresh ideas that turn into real, sustainable ventures.">Mendorong ide-ide segar menjadi usaha nyata yang berkelanjutan.</p>
-      </div>
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-          </svg>
+        <div class="why-card" data-animate="fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h4 data-en="Professional Team">Tim Profesional</h4>
+          <p data-en="Experienced mentors and advisors guiding every stage of growth.">Mentor dan penasihat berpengalaman membimbing setiap tahap pertumbuhan.</p>
         </div>
-        <h4 data-en="Professional Team">Tim Profesional</h4>
-        <p data-en="Experienced mentors and advisors guiding every stage of growth.">Mentor dan penasihat berpengalaman membimbing setiap tahap pertumbuhan.</p>
-      </div>
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M8 12h8M12 8v8" />
-            <circle cx="12" cy="12" r="10" />
-          </svg>
+        <div class="why-card" data-animate="fade-up">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 12h8M12 8v8" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+          </div>
+          <h4 data-en="Industry Collaboration">Kolaborasi Industri</h4>
+          <p data-en="Strong partnerships bridging campus talent with real market needs.">Kemitraan kuat menjembatani talenta kampus dengan kebutuhan pasar.</p>
         </div>
-        <h4 data-en="Industry Collaboration">Kolaborasi Industri</h4>
-        <p data-en="Strong partnerships bridging campus talent with real market needs.">Kemitraan kuat menjembatani talenta kampus dengan kebutuhan pasar.</p>
-      </div>
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4" y="4" width="16" height="16" rx="3" />
-            <path d="M9 9h6v6H9z" />
-            <path d="M4 9h2M4 15h2M18 9h2M18 15h2M9 4v2M15 4v2M9 18v2M15 18v2" />
-          </svg>
-        </div>
-        <h4 data-en="Technology Driven">Berbasis Teknologi</h4>
-        <p data-en="Digital infrastructure powering every service in the ecosystem.">Infrastruktur digital yang menggerakkan setiap layanan dalam ekosistem.</p>
-      </div>
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 4v6h6M23 20v-6h-6" />
-            <path d="M20.5 9A9 9 0 0 0 4.6 5.6L1 10M3.5 15a9 9 0 0 0 15.9 3.4L23 14" />
-          </svg>
-        </div>
-        <h4 data-en="Digital Transformation">Transformasi Digital</h4>
-        <p data-en="Modern tools and processes for a more agile business ecosystem.">Alat dan proses modern untuk ekosistem bisnis yang lebih adaptif.</p>
-      </div>
-      <div class="why-card" data-animate="fade-up">
-        <div class="why-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2l3 6 6.5 1-4.7 4.6L18 20l-6-3.4L6 20l1.2-6.4L2.5 9 9 8z" />
-          </svg>
-        </div>
-        <h4 data-en="Business Incubation">Inkubasi Bisnis</h4>
-        <p data-en="Structured programs that turn early ideas into scalable businesses.">Program terstruktur mengubah ide awal menjadi bisnis yang siap berkembang.</p>
-      </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
 
 <section class="section-pad">
+  <?php
+  $statRows = [];
+  if (isset($koneksi)) {
+      $result = mysqli_query($koneksi, "SELECT * FROM statistik WHERE aktif=1 ORDER BY posisi ASC, id DESC");
+      if ($result) {
+          while ($row = mysqli_fetch_assoc($result)) {
+              $statRows[] = $row;
+          }
+      }
+  }
+  ?>
   <div class="stats-section" data-animate="zoom">
     <div class="stats-title">
       <h2 data-en="Growing an Ecosystem That Matters">Membangun Ekosistem yang Berdampak</h2>
       <p data-en="Numbers that reflect our commitment to collaboration and growth.">Angka yang mencerminkan komitmen kami pada kolaborasi dan pertumbuhan.</p>
     </div>
     <div class="stats-grid">
-      <div>
-        <div class="stat-num"><span class="counter" data-target="250">0</span><span>+</span></div>
-        <div class="stat-label" data-en="Business Partners">Mitra Bisnis</div>
-      </div>
-      <div>
-        <div class="stat-num"><span class="counter" data-target="120">0</span><span>+</span></div>
-        <div class="stat-label" data-en="Published Books">Buku Diterbitkan</div>
-      </div>
-      <div>
-        <div class="stat-num"><span class="counter" data-target="500">0</span><span>+</span></div>
-        <div class="stat-label" data-en="Entrepreneurs Assisted">Wirausahawan Dibina</div>
-      </div>
-      <div>
-        <div class="stat-num"><span class="counter" data-target="30">0</span><span>+</span></div>
-        <div class="stat-label" data-en="Industry Collaborations">Kolaborasi Industri</div>
-      </div>
+      <?php if (!empty($statRows)): ?>
+        <?php foreach ($statRows as $stat): ?>
+          <div>
+            <div class="stat-num"><span class="counter" data-target="<?= (int) $stat['angka']; ?>">0</span><span>+</span></div>
+            <div class="stat-label"><?= htmlspecialchars($stat['label']); ?></div>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="250">0</span><span>+</span></div>
+          <div class="stat-label" data-en="Business Partners">Mitra Bisnis</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="120">0</span><span>+</span></div>
+          <div class="stat-label" data-en="Published Books">Buku Diterbitkan</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="500">0</span><span>+</span></div>
+          <div class="stat-label" data-en="Entrepreneurs Assisted">Wirausahawan Dibina</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="counter" data-target="30">0</span><span>+</span></div>
+          <div class="stat-label" data-en="Industry Collaborations">Kolaborasi Industri</div>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>

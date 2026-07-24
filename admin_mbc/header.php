@@ -88,6 +88,20 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
             justify-content: space-between;
             align-items: center;
             margin-bottom: 28px;
+            gap: 12px;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
         .search-box {
             position: relative;
@@ -126,6 +140,19 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
             justify-content: center;
             cursor: pointer;
             color: var(--text-muted);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
         .badge-count {
             position: absolute;
@@ -206,6 +233,39 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
         .mini-avatar { width: 32px; height: 32px; border-radius: 50%; background: #10b981; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
         .user-detail h4 { font-size: 13px; font-weight: 600; }
         .user-detail p { font-size: 11px; color: var(--text-muted); }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                width: 220px;
+                transition: left 0.25s ease;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .topbar {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .search-box { width: 100%; }
+            .mobile-menu-btn { display: inline-flex; }
+        }
+
+        @media (max-width: 720px) {
+            .sidebar {
+                width: 100%;
+                max-width: 280px;
+            }
+            .topbar-actions { display: none; }
+            .brand-text h2 { font-size: 14px; }
+            .brand-text span { font-size: 10px; }
+        }
     </style>
 </head>
 
@@ -241,6 +301,7 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
     <main class="main-content">
         <!-- TOPBAR -->
         <div class="topbar">
+            <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Cari data...">
@@ -257,3 +318,8 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
                 </div>
             </div>
         </div>
+        <script>
+            function toggleSidebar() {
+                document.querySelector('.sidebar').classList.toggle('open');
+            }
+        </script>
