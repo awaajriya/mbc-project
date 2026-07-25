@@ -23,17 +23,17 @@
         <h2>Admin Login</h2>
         <p>Silakan masuk untuk mengakses halaman administrator.</p>
 
-        <form>
+        <form action="proses_login.php" method="POST">
 
-            <div class="input-box">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" placeholder="Username">
-            </div>
+            <input type="text"
+                name="username"
+                placeholder="Username"
+                required>
 
-            <div class="input-box">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" placeholder="Password">
-            </div>
+            <input type="password"
+                name="password"
+                placeholder="Password"
+                required>
 
             <button type="submit">
                 Login
@@ -44,6 +44,8 @@
     </div>
 
 </div>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
