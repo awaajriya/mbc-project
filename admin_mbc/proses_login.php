@@ -3,21 +3,21 @@ session_start();
 include "koneksi.php";
 
 $username = $_POST['username'];
-$password = md5($_POST['password']);
+$password = $_POST['password'];
 
 $sql = "SELECT * FROM admin
         WHERE username='$username'
         AND password='$password'";
 
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($koneksi, $sql);
 
-if(mysqli_num_rows($result) > 0){
+if (mysqli_num_rows($result) > 0) {
 
     $_SESSION['admin'] = $username;
-
     header("Location: dashboard.php");
+    exit;
 
-}else{
+} else {
 
     echo "<script>
         alert('Username atau Password salah!');

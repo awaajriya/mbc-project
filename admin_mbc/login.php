@@ -28,17 +28,25 @@ date_default_timezone_set("Asia/Jakarta");
         <h2>Admin Login</h2>
         <p>Silakan masuk untuk mengakses halaman administrator.</p>
 
-        <form action="proses_login.php" method="POST">
-
-            <input type="text"
-                name="username"
-                placeholder="Username"
-                required>
-
-            <input type="password"
-                name="password"
-                placeholder="Password"
-                required>
+        <form id="loginForm" action="proses_login.php" method="POST">
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Username"
+                    required>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+            </div>
 
             <button type="submit">
                 Login
