@@ -129,22 +129,25 @@ img {
     position: absolute;
     top: 20px;
     left: 20px;
-    width: 42px;
-    height: 42px;
-    color: rgb(0, 0, 0);
-    border-radius: 50%;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-    z-index: 999;
+    padding: 8px 12px;
+    border-radius: 10px;
 
-    background:rgb(255, 255, 255) !important;    
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: all .3s ease;
 }
 
-.home-btn:hover{
-    background: var(--blue);
-    color: #333030;
+.login-card .home-btn:hover{
+    background: rgba(30, 78, 150, 0.08);
+    color: var(--blue-deep);
 }
 
 /* Admin dashboard */

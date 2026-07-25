@@ -798,12 +798,28 @@ date_default_timezone_set("Asia/Jakarta");
       opacity: 0.5;
       filter: grayscale(1);
       transition: 0.3s;
+      display: flex;
+      flex-direction: column;   /* Logo di atas */
+      align-items: center;      /* Posisi di tengah */
+      text-align: center;
+      gap: 10px;
     }
 
     .trusted-item:hover {
       opacity: 1;
       filter: grayscale(0);
       color: var(--blue);
+    }
+
+
+    .trusted-logo{
+        height: 120px;
+        width: auto;
+    }
+
+    .trusted-item span{
+        font-size: 16px;
+        font-weight: 600;
     }
 
     /* ============ ABOUT ============ */
