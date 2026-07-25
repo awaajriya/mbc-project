@@ -23,11 +23,6 @@ date_default_timezone_set("Asia/Jakarta");
 
     <div class="login-card">
 
-        <a href="../index.php" class="home-btn">
-           <i class="fa-solid fa-arrow-left"></i>
-           <span>Kembali ke Beranda</span>
-        </a>
-
         <img src="assets/logo_footer.png" alt="Logo MBC" class="logo">
 
         <h2>Admin Login</h2>
@@ -58,7 +53,10 @@ date_default_timezone_set("Asia/Jakarta");
             </button>
 
         </form>
-
+        <a href="../index.php" class="back-home">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Kembali ke Beranda</span>
+        </a>
     </div>
 
 </div>

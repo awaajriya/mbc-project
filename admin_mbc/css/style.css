@@ -125,31 +125,30 @@ img {
     background: var(--blue-deep);
 }
 
-.login-card .home-btn{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-
-    display: flex;
+.back-home{
+    margin-top: 18px;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-
-    padding: 8px 12px;
-    border-radius: 10px;
-
+    gap: 6px;
+    margin-top: 20px;   /* dari 10px menjadi 20px */
     color: var(--blue);
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
-
-    transition: all .3s ease;
+    transition: .3s;
 }
 
-.login-card .home-btn:hover{
-    background: rgba(30, 78, 150, 0.08);
+.back-home:hover{
     color: var(--blue-deep);
 }
 
+.back-home i{
+    transition: transform .3s;
+}
+
+.back-home:hover i{
+    transform: translateX(-4px);
+}
 /* Admin dashboard */
 
 .admin-shell {
