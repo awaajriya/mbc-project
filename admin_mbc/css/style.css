@@ -68,6 +68,7 @@ img {
     padding: 40px 36px;
     box-shadow: var(--shadow);
     text-align: center;
+    position: relative;
 }
 
 .login-card .logo {
@@ -102,11 +103,12 @@ img {
 
 .input-box input {
     width: 100%;
-    padding: 14px 16px 14px 48px;
     border: 1px solid rgba(30, 78, 150, 0.18);
-    border-radius: 14px;
     outline: none;
     background: #fafbff;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    padding: 14px 18px 14px 48px;
 }
 
 .login-card button {
@@ -121,6 +123,28 @@ img {
 
 .login-card button:hover {
     background: var(--blue-deep);
+}
+
+.login-card .home-btn{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
+    color: rgb(0, 0, 0);
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    z-index: 999;
+
+    background:rgb(255, 255, 255) !important;    
+}
+
+.home-btn:hover{
+    background: var(--blue);
+    color: #333030;
 }
 
 /* Admin dashboard */

@@ -23,13 +23,17 @@ date_default_timezone_set("Asia/Jakarta");
 
     <div class="login-card">
 
+        <a href="../index.php" class="home-btn">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
         <img src="assets/logo_footer.png" alt="Logo MBC" class="logo">
 
         <h2>Admin Login</h2>
         <p>Silakan masuk untuk mengakses halaman administrator.</p>
 
         <form id="loginForm" action="proses_login.php" method="POST">
-            <div class="input-group">
+            <div class="input-box">
                 <i class="fa-solid fa-user"></i>
                 <input
                     type="text"
@@ -38,7 +42,7 @@ date_default_timezone_set("Asia/Jakarta");
                     placeholder="Username"
                     required>
             </div>
-            <div class="input-group">
+            <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input
                     type="password"
