@@ -120,7 +120,10 @@
   <div class="container">
     <p class="trusted-label" data-en="Supported By">Didukung Oleh</p>
     <div class="trusted-row">
-      <div class="trusted-item">Politeknik Mardira Indonesia</div>
+      <div  class="trusted-item">
+        <img src="landing/logo_kampus.png" alt="Politeknik Mardira Indonesia" class="trusted-logo" >
+        <span>Politeknik Mardira Indonesia</span>
+      </div>
       <div class="trusted-item" data-en="Industry Partners">Mitra Industri</div>
       <div class="trusted-item" data-en="Government">Pemerintah</div>
       <div class="trusted-item">UMKM</div>
