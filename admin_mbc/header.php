@@ -57,6 +57,33 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
             position: fixed;
             height: 100vh;
             z-index: 100;
+            left: 0;
+            transition: left 0.25s ease;
+        }
+        .sidebar .close-sidebar {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            padding: 14px 18px;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease;
+            z-index: 90;
+            pointer-events: none;
+        }
+        .backdrop.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
         }
         .brand {
             padding: 20px 24px;
@@ -277,6 +304,7 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
                 max-width: 280px;
             }
             .topbar-actions { display: none; }
+            .sidebar .close-sidebar { display: inline-flex; }
             .brand-text h2 { font-size: 14px; }
             .brand-text span { font-size: 10px; }
         }
@@ -292,6 +320,7 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
                 <h2>MBC Dashboard</h2>
                 <span>Admin Panel</span>
             </div>
+            <button class="close-sidebar" onclick="closeSidebar()" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <ul class="sidebar-nav">
@@ -337,8 +366,14 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
                 </div>
             </div>
         </div>
+        <div class="backdrop" onclick="closeSidebar()"></div>
         <script>
             function toggleSidebar() {
                 document.querySelector('.sidebar').classList.toggle('open');
+                document.querySelector('.backdrop').classList.toggle('visible');
+            }
+            function closeSidebar() {
+                document.querySelector('.sidebar').classList.remove('open');
+                document.querySelector('.backdrop').classList.remove('visible');
             }
         </script>
