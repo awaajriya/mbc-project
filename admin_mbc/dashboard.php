@@ -109,21 +109,21 @@ include 'header.php';
     </div>
 
     <div class="stat-card">
-        <div class="stat-icon"><i class="fa-solid fa-folder"></i></div>
-        <div class="stat-info">
-            <span>Total Proyek</span>
-            <h3><?= $totalProjects; ?></h3>
-        </div>
-        <a href="projects.php" class="stat-link">Lihat semua →</a>
-    </div>
-
-    <div class="stat-card">
         <div class="stat-icon"><i class="fa-solid fa-chart-column"></i></div>
         <div class="stat-info">
             <span>Total Statistik</span>
             <h3><?= $totalStatistics; ?></h3>
         </div>
         <a href="statistik.php" class="stat-link">Lihat semua →</a>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-folder"></i></div>
+        <div class="stat-info">
+            <span>Total Proyek</span>
+            <h3><?= $totalProjects; ?></h3>
+        </div>
+        <a href="projects.php" class="stat-link">Lihat semua →</a>
     </div>
 
     <div class="stat-card">

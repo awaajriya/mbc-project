@@ -99,8 +99,15 @@ include 'header.php';
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Ikon FontAwesome</label>
-                <input type="text" name="icon_class" value="<?= $icon_class; ?>" placeholder="Contoh: fa-lightbulb" style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:8px; margin-top:6px;">
-                <small style="font-size:11px; color:var(--text-muted);">Masukkan nama kelas ikon tanpa prefix <code>fa-solid</code>.</small>
+                <select name="icon_class" style="width:100%; padding:10px; border:1px solid var(--border-color); border-radius:8px; margin-top:6px;">
+                    <option value="fa-lightbulb" <?= $icon_class === 'fa-lightbulb' ? 'selected' : ''; ?>>Lightbulb (fa-lightbulb)</option>
+                    <option value="fa-star" <?= $icon_class === 'fa-star' ? 'selected' : ''; ?>>Star (fa-star)</option>
+                    <option value="fa-crown" <?= $icon_class === 'fa-crown' ? 'selected' : ''; ?>>Crown (fa-crown)</option>
+                    <option value="fa-rocket" <?= $icon_class === 'fa-rocket' ? 'selected' : ''; ?>>Rocket (fa-rocket)</option>
+                    <option value="fa-chart-line" <?= $icon_class === 'fa-chart-line' ? 'selected' : ''; ?>>Chart Line (fa-chart-line)</option>
+                    <option value="fa-handshake" <?= $icon_class === 'fa-handshake' ? 'selected' : ''; ?>>Handshake (fa-handshake)</option>
+                </select>
+                <small style="font-size:11px; color:var(--text-muted);">Pilih ikon untuk ditampilkan pada section Keunggulan.</small>
             </div>
             <div style="display:flex; flex-direction:column; gap:8px;">
                 <label style="font-size: 13px; font-weight: 600;">Status Publikasi</label>
@@ -148,8 +155,8 @@ include 'header.php';
                         <td><?= (int) $row['posisi']; ?></td>
                         <td><?= $row['aktif'] ? 'Aktif' : 'Tidak aktif'; ?></td>
                         <td>
-                            <a href="keunggulan.php?edit=<?= $row['id']; ?>" style="color: #2563eb; margin-right: 12px;"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                            <a href="keunggulan.php?hapus=<?= $row['id']; ?>" onclick="return confirm('Hapus keunggulan ini?')" style="color: #ef4444;"><i class="fa-solid fa-trash"></i> Hapus</a>
+                            <a href="keunggulan.php?edit=<?= $row['id']; ?>" style="color: #2563eb; margin-right: 12px;"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="keunggulan.php?hapus=<?= $row['id']; ?>" onclick="return confirm('Hapus keunggulan ini?')" style="color: #ef4444;"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
             <?php

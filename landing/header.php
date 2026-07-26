@@ -16,6 +16,8 @@ date_default_timezone_set("Asia/Jakarta");
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     /* ============ TOKENS ============ */
     :root {
@@ -1027,14 +1029,26 @@ date_default_timezone_set("Asia/Jakarta");
       margin-bottom: 18px;
     }
 
-    .why-icon svg {
+    .why-icon svg,
+    .why-icon i.fa-solid {
       width: 22px;
       height: 22px;
+      color: var(--blue);
       stroke: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
     }
 
     body.dark .why-icon {
       background: rgba(246, 184, 0, 0.1);
+    }
+
+    body.dark .why-icon svg,
+    body.dark .why-icon i.fa-solid {
+      color: var(--gold-light);
+      stroke: var(--gold-light);
     }
 
     body.dark .why-icon svg {
@@ -1380,12 +1394,30 @@ date_default_timezone_set("Asia/Jakarta");
       transition: 0.3s;
     }
 
+    /* Support Font Awesome icons inside project media */
+    .proj-media i.fa-solid {
+      font-size: 56px;
+      color: #fff;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      padding: 6px;
+    }
     .testi-dot.active {
       background: var(--blue);
       width: 26px;
       border-radius: 100px;
     }
 
+    /* Support Font Awesome icons inside unit icon box */
+    .unit-icon i.fa-solid {
+      font-size: 28px;
+      color: #fff;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
     .testi-arrow {
       position: absolute;
       top: 50%;

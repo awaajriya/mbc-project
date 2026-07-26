@@ -9,6 +9,16 @@ if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
+$editData = null;
+$edit_id = 0;
+if (isset($_GET['edit'])) {
+    $edit_id = (int)$_GET['edit'];
+    $edit_res = mysqli_query($koneksi, "SELECT * FROM proyek_unggulan WHERE id=$edit_id");
+    if ($edit_res && mysqli_num_rows($edit_res) > 0) {
+        $editData = mysqli_fetch_assoc($edit_res);
+    }
+}
+
 // --- PROSES TAMBAH DATA ---
 if (isset($_POST['tambah'])) {
     $sub_unit   = mysqli_real_escape_string($koneksi, $_POST['sub_unit']);
@@ -26,9 +36,26 @@ if (isset($_POST['tambah'])) {
     }
 }
 
+// --- PROSES EDIT DATA ---
+if (isset($_POST['edit'])) {
+    $edit_id = (int)$_POST['edit_id'];
+    $sub_unit   = mysqli_real_escape_string($koneksi, $_POST['sub_unit']);
+    $judul      = mysqli_real_escape_string($koneksi, $_POST['judul']);
+    $deskripsi  = mysqli_real_escape_string($koneksi, $_POST['deskripsi']);
+    $link       = mysqli_real_escape_string($koneksi, $_POST['link']);
+    $bg_color   = mysqli_real_escape_string($koneksi, $_POST['bg_color']);
+    $icon_class = mysqli_real_escape_string($koneksi, $_POST['icon_class']);
+
+    $query = "UPDATE proyek_unggulan SET sub_unit='$sub_unit', judul='$judul', deskripsi='$deskripsi', link='$link', bg_color='$bg_color', icon_class='$icon_class' WHERE id=$edit_id";
+
+    if (mysqli_query($koneksi, $query)) {
+        echo "<script>alert('Proyek berhasil diperbarui!'); window.location='projects.php';</script>";
+    }
+}
+
 // --- PROSES HAPUS DATA ---
 if (isset($_GET['hapus'])) {
-    $id = $_GET['hapus'];
+    $id = (int)$_GET['hapus'];
     mysqli_query($koneksi, "DELETE FROM proyek_unggulan WHERE id=$id");
     echo "<script>alert('Proyek berhasil dihapus!'); window.location='projects.php';</script>";
 }
@@ -42,46 +69,57 @@ if (isset($_GET['hapus'])) {
 <!-- FORM TAMBAH DATA -->
 <div class="card-box" style="margin-bottom: 24px;">
     <div class="card-header">
-        <h3><i class="fa-solid fa-plus-circle"></i> Tambah Proyek Baru</h3>
+        <h3><i class="fa-solid fa-<?= $editData ? 'pen-to-square' : 'plus-circle'; ?>"></i> <?= $editData ? 'Edit Proyek' : 'Tambah Proyek Baru' ?></h3>
     </div>
+    <?php if ($editData): ?>
+        <p style="margin-bottom: 12px; color: #64748b;">Sedang mengedit data proyek: <strong><?= htmlspecialchars($editData['judul']); ?></strong></p>
+    <?php endif; ?>
     <form action="" method="POST" style="display: grid; gap: 16px;">
+        <?php if ($editData): ?>
+            <input type="hidden" name="edit_id" value="<?= (int)$editData['id']; ?>">
+        <?php endif; ?>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Sub-Unit / Badge</label>
-                <input type="text" name="sub_unit" required placeholder="Contoh: MARDIRA PRESS" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
+                <input type="text" name="sub_unit" required placeholder="Contoh: MARDIRA PRESS" value="<?= htmlspecialchars($editData ? $editData['sub_unit'] : '', ENT_QUOTES); ?>" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
             </div>
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Judul Proyek</label>
-                <input type="text" name="judul" required placeholder="Contoh: Jurnal Ilmiah Terakreditasi" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
+                <input type="text" name="judul" required placeholder="Contoh: Jurnal Ilmiah Terakreditasi" value="<?= htmlspecialchars($editData ? $editData['judul'] : '', ENT_QUOTES); ?>" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Warna Cards Header</label>
-                <input type="color" name="bg_color" value="#0f172a" style="width: 100%; height: 42px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px; cursor: pointer;">
+                <input type="color" name="bg_color" value="<?= htmlspecialchars($editData ? $editData['bg_color'] : '#0f172a', ENT_QUOTES); ?>" style="width: 100%; height: 42px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px; cursor: pointer;">
             </div>
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Ikon Card</label>
                 <select name="icon_class" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
-                    <option value="fa-book">Buku (fa-book)</option>
-                    <option value="fa-desktop">Komputer (fa-desktop)</option>
-                    <option value="fa-star">Bintang (fa-star)</option>
-                    <option value="fa-rocket">Roket (fa-rocket)</option>
+                    <option value="fa-book" <?= ($editData && $editData['icon_class'] == 'fa-book') ? 'selected' : ''; ?>>Buku (fa-book)</option>
+                    <option value="fa-desktop" <?= ($editData && $editData['icon_class'] == 'fa-desktop') ? 'selected' : ''; ?>>Komputer (fa-desktop)</option>
+                    <option value="fa-star" <?= ($editData && $editData['icon_class'] == 'fa-star') ? 'selected' : ''; ?>>Bintang (fa-star)</option>
+                    <option value="fa-rocket" <?= ($editData && $editData['icon_class'] == 'fa-rocket') ? 'selected' : ''; ?>>Roket (fa-rocket)</option>
                 </select>
             </div>
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Link Detail</label>
-                <input type="text" name="link" value="#" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
+                <input type="text" name="link" value="<?= htmlspecialchars($editData ? $editData['link'] : '#', ENT_QUOTES); ?>" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
             </div>
         </div>
 
         <div>
             <label style="font-size: 13px; font-weight: 600;">Deskripsi</label>
-            <textarea name="deskripsi" rows="3" required placeholder="Deskripsi proyek..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;"></textarea>
+            <textarea name="deskripsi" rows="3" required placeholder="Deskripsi proyek..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;"><?= htmlspecialchars($editData ? $editData['deskripsi'] : '', ENT_QUOTES); ?></textarea>
         </div>
 
-        <button type="submit" name="tambah" style="background: var(--primary); color: #fff; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: fit-content;">Simpan & Publikasikan</button>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <button type="submit" name="<?= $editData ? 'edit' : 'tambah'; ?>" style="background: var(--primary); color: #fff; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: fit-content;"><?= $editData ? 'Simpan Perubahan' : 'Simpan & Publikasikan'; ?></button>
+            <?php if ($editData): ?>
+                <a href="projects.php" style="color: #64748b; text-decoration: none;">Batal Edit</a>
+            <?php endif; ?>
+        </div>
     </form>
 </div>
 
@@ -116,7 +154,8 @@ if (isset($_GET['hapus'])) {
                         <i class="fa-solid <?= $row['icon_class']; ?>" style="margin-left: 6px;"></i>
                     </td>
                     <td>
-                        <a href="projects.php?hapus=<?= $row['id']; ?>" onclick="return confirm('Hapus data ini?')" style="color: #ef4444;"><i class="fa-solid fa-trash"></i> Hapus</a>
+                        <a href="projects.php?edit=<?= $row['id']; ?>" style="color: #3b82f6; margin-right: 10px;"><i class="fa-solid fa-edit"></i></a>
+                        <a href="projects.php?hapus=<?= $row['id']; ?>" onclick="return confirm('Hapus data ini?')" style="color: #ef4444;"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             <?php 

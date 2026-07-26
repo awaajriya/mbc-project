@@ -121,7 +121,7 @@
     <p class="trusted-label" data-en="Supported By">Didukung Oleh</p>
     <div class="trusted-row">
       <div  class="trusted-item">
-        <img src="landing/logo_kampus.png" alt="Politeknik Mardira Indonesia" class="trusted-logo" >
+        <img src="assets/logo_kampus.png" alt="Politeknik Mardira Indonesia" class="trusted-logo" >
         <span>Politeknik Mardira Indonesia</span>
       </div>
       <div class="trusted-item" data-en="Industry Partners">Mitra Industri</div>
@@ -187,78 +187,96 @@
       </p>
     </div>
 
+    <?php
+    require_once __DIR__ . '/../admin_mbc/koneksi.php';
+
+    function parse_unit_meta_for_display($raw) {
+      $meta = json_decode($raw, true);
+      if (!is_array($meta)) {
+        return [
+          'nomor_urut' => '',
+          'kategori' => '',
+          'judul_tombol' => 'Pelajari Lebih Lanjut',
+          'link_tombol' => '#',
+          'warna' => '#0d6efd',
+          'icon_class' => 'fa-book',
+          'layanan' => '',
+          'status' => 'Aktif'
+        ];
+      }
+
+      return array_merge([
+        'nomor_urut' => '',
+        'kategori' => '',
+        'judul_tombol' => 'Pelajari Lebih Lanjut',
+        'link_tombol' => '#',
+        'warna' => '#0d6efd',
+        'icon_class' => 'fa-book',
+        'layanan' => '',
+        'status' => 'Aktif'
+      ], $meta);
+    }
+
+    $unitRows = [];
+    if (isset($koneksi)) {
+      $unitResult = mysqli_query($koneksi, "SELECT * FROM unit_bisnis ORDER BY id_unit DESC");
+      if ($unitResult) {
+        while ($unit = mysqli_fetch_assoc($unitResult)) {
+          $meta = parse_unit_meta_for_display($unit['deskripsi']);
+          if (($meta['status'] ?? 'Aktif') !== 'Nonaktif') {
+            $unitRows[] = ['unit' => $unit, 'meta' => $meta];
+          }
+        }
+      }
+    }
+    ?>
+
     <div class="units-grid">
-      <div class="unit-card" data-animate="fade-up">
-        <div class="unit-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-            <path d="M9 7h7M9 11h7" />
-          </svg>
+      <?php if (!empty($unitRows)): ?>
+        <?php foreach ($unitRows as $item): ?>
+          <?php
+          $unit = $item['unit'];
+          $meta = $item['meta'];
+          $unitName = htmlspecialchars($unit['nama_unit']);
+          $unitTag = htmlspecialchars(!empty($meta['nomor_urut']) ? $meta['nomor_urut'] . ' · ' . $meta['kategori'] : $meta['kategori']);
+          $unitButtonText = htmlspecialchars($meta['judul_tombol'] ?: 'Pelajari Lebih Lanjut');
+          $unitLink = htmlspecialchars($meta['link_tombol'] ?: '#');
+          $unitIcon = htmlspecialchars($meta['icon_class'] ?: 'fa-book');
+          $unitColor = htmlspecialchars($meta['warna'] ?: '#0d6efd');
+          $services = preg_split('/\r\n|\r|\n/', $meta['layanan']);
+          ?>
+          <div class="unit-card" data-animate="fade-up">
+            <div class="unit-icon" style="color: <?= $unitColor; ?>;">
+              <i class="fa-solid <?= $unitIcon; ?>" style="font-size: 24px;"></i>
+            </div>
+            <span class="unit-tag"><?= $unitTag; ?></span>
+            <h3><?= $unitName; ?></h3>
+            <ul class="unit-list">
+              <?php foreach ($services as $service): ?>
+                <?php $serviceText = trim($service); ?>
+                <?php if ($serviceText !== ''): ?>
+                  <li><?= htmlspecialchars($serviceText); ?></li>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </ul>
+            <a href="<?= $unitLink; ?>" class="unit-link">
+              <span data-en="Learn More"><?= $unitButtonText; ?></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="unit-card" data-animate="fade-up">
+          <div class="unit-icon">
+            <i class="fa-solid fa-layer-group" style="font-size: 24px;"></i>
+          </div>
+          <span class="unit-tag">Belum ada data</span>
+          <h3>Unit Bisnis Kosong</h3>
+          <p style="color: var(--text-muted);">Tambahkan unit bisnis melalui halaman admin untuk menampilkannya di landing page.</p>
         </div>
-        <span class="unit-tag">01 · Publishing</span>
-        <h3>Mardira Press</h3>
-        <ul class="unit-list">
-          <li>Publication</li>
-          <li>ISBN Registration</li>
-          <li>Scientific Journal</li>
-          <li>Book Publishing</li>
-          <li>Printing</li>
-        </ul>
-        <a href="#" class="unit-link"><span data-en="Learn More">Pelajari Lebih Lanjut</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg></a>
-      </div>
-
-      <div class="unit-card" data-animate="fade-up">
-        <div class="unit-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2">
-            <circle cx="12" cy="12" r="2.5" />
-            <circle cx="5" cy="6" r="2" />
-            <circle cx="19" cy="6" r="2" />
-            <circle cx="5" cy="18" r="2" />
-            <circle cx="19" cy="18" r="2" />
-            <path d="M10 11 6.5 7.3M14 11l3.5-3.7M10 13l-3.5 3.7M14 13l3.5 3.7" />
-          </svg>
-        </div>
-        <span class="unit-tag">02 · Incubation</span>
-        <h3>Mardira Hub</h3>
-        <ul class="unit-list">
-          <li>Coworking Space</li>
-          <li>Business Incubator</li>
-          <li>Training</li>
-          <li>Workshop & Event</li>
-          <li>Consulting</li>
-        </ul>
-        <a href="#" class="unit-link"><span data-en="Explore">Jelajahi</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg></a>
-      </div>
-
-      <div class="unit-card" data-animate="fade-up">
-        <div class="unit-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2">
-            <rect x="3" y="4" width="18" height="12" rx="2" />
-            <path d="M8 21h8M12 16v5" />
-            <path d="M8.5 8.5L7 10l1.5 1.5M12.5 8.5L14 10l-1.5 1.5" />
-          </svg>
-        </div>
-        <span class="unit-tag" data-en="03 · Consulting">03 · Konsultasi</span>
-        <h3>Mardira IT Consulting</h3>
-        <ul class="unit-list">
-          <li data-en="IT Consulting">Konsultasi IT</li>
-          <li data-en="Software Development">Pengembangan Software</li>
-          <li data-en="Digital Strategy">Strategi Digital</li>
-          <li data-en="Cloud Solutions">Solusi Cloud</li>
-          <li data-en="System Integration">Integrasi Sistem</li>
-        </ul>
-        <a href="#" class="unit-link"><span data-en="Get Consultation">Konsultasi Sekarang</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg></a>
-      </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>

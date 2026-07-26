@@ -35,11 +35,11 @@ if (!$row['is_read']) {
     <div style="margin:8px 0;color:#6b7280;">Dari: <strong><?= htmlspecialchars($row['nama']); ?></strong> &middot; <?= htmlspecialchars($row['email']); ?> &middot; <?= htmlspecialchars($row['created_at']); ?></div>
     <div style="white-space:pre-wrap;padding:12px;border:1px solid #f1f5f9;background:#fff; border-radius:8px;"><?= htmlspecialchars($row['pesan']); ?></div>
 
-    <div style="margin-top:12px;">
-        <a href="pesan.php" style="margin-right:8px;">← Kembali</a>
-        <a href="pesan_view.php?id=<?= $id; ?>&delete=1" onclick="return confirm('Hapus pesan ini?');" style="color:#ef4444;margin-right:8px;">Hapus</a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=<?= rawurlencode($row['email']); ?>&su=<?= rawurlencode('Re: '.$row['subject']); ?>" target="_blank" style="margin-right:8px;">Balas di Gmail</a>
-        <a href="mailto:<?= htmlspecialchars($row['email']); ?>?subject=Re: <?= rawurlencode($row['subject']); ?>">Balas via Email</a>
+    <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:10px;">
+        <a href="pesan.php" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #d1d5db;color:#1f2937;background:#f8fafc;text-decoration:none;">← Kembali</a>
+        <a href="pesan_view.php?id=<?= $id; ?>&delete=1" onclick="return confirm('Hapus pesan ini?');" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #fecaca;color:#b91c1c;background:#fef2f2;text-decoration:none;">Hapus</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=<?= rawurlencode($row['email']); ?>&su=<?= rawurlencode('Re: '.$row['subject']); ?>" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #c7d2fe;color:#1d4ed8;background:#eff6ff;text-decoration:none;">Balas di Gmail</a>
+        <a href="mailto:<?= htmlspecialchars($row['email']); ?>?subject=Re: <?= rawurlencode($row['subject']); ?>" style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #d1d5db;color:#1f2937;background:#f8fafc;text-decoration:none;">Balas via Email</a>
     </div>
 
     <?php

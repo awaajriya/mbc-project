@@ -13,7 +13,21 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title; ?></title>
-    
+
+    <?php
+    if (!isset($koneksi)) {
+        @include_once __DIR__ . '/koneksi.php';
+    }
+    $unreadCount = 0;
+    if (isset($koneksi) && $koneksi) {
+        $countResult = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM pesan WHERE is_read = 0");
+        if ($countResult) {
+            $countRow = mysqli_fetch_assoc($countResult);
+            $unreadCount = (int) ($countRow['total'] ?? 0);
+        }
+    }
+    ?>
+
     <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -283,12 +297,12 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
         <ul class="sidebar-nav">
             <li><a href="dashboard.php" class="<?= ($page == 'dashboard') ? 'active' : ''; ?>"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="units.php" class="<?= ($page == 'units') ? 'active' : ''; ?>"><i class="fa-solid fa-building"></i> Unit Bisnis</a></li>
-            <li><a href="projects.php" class="<?= ($page == 'projects') ? 'active' : ''; ?>"><i class="fa-solid fa-folder-open"></i> Proyek Unggulan</a></li>
             <li><a href="keunggulan.php" class="<?= ($page == 'keunggulan') ? 'active' : ''; ?>"><i class="fa-solid fa-star"></i> Keunggulan MBC</a></li>
             <li><a href="statistik.php" class="<?= ($page == 'statistik') ? 'active' : ''; ?>"><i class="fa-solid fa-chart-simple"></i> Statistik</a></li>
             <li><a href="proses_collab.php" class="<?= ($page == 'proses_collab') ? 'active' : ''; ?>"><i class="fa-solid fa-arrows-rotate"></i> Proses Kolaborasi</a></li>
+            <li><a href="projects.php" class="<?= ($page == 'projects') ? 'active' : ''; ?>"><i class="fa-solid fa-folder-open"></i> Proyek Unggulan</a></li>
             <li><a href="pesan.php" class="<?= ($page == 'pesan') ? 'active' : ''; ?>"><i class="fa-solid fa-envelope"></i> Kontak (Pesan)</a></li>
-            <li><a href="users.php" class="<?= ($page == 'users') ? 'active' : ''; ?>"><i class="fa-solid fa-users"></i> Admin / User</a></li>
+            <li><a href="users.php" class="<?= ($page == 'users') ? 'active' : ''; ?>"><i class="fa-solid fa-users"></i> Admin</a></li>
             <li><a href="settings.php" class="<?= ($page == 'settings') ? 'active' : ''; ?>"><i class="fa-solid fa-gear"></i> Pengaturan Website</a></li>
         </ul>
 
@@ -302,13 +316,18 @@ $namaAdmin = $namaAdmin ?? "Admin Hasan";
         <!-- TOPBAR -->
         <div class="topbar">
             <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-            <div class="search-box">
+            <form action="search.php" method="GET" class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Cari data...">
-            </div>
+                <input type="text" name="q" placeholder="Cari data..." value="<?= htmlspecialchars($searchQuery ?? '', ENT_QUOTES); ?>">
+            </form>
 
             <div class="topbar-actions">
-                <div class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-count">3</span></div>
+                <a href="pesan.php" class="icon-btn" title="Pesan masuk">
+                    <i class="fa-regular fa-bell"></i>
+                    <?php if ($unreadCount > 0): ?>
+                        <span class="badge-count"><?= $unreadCount; ?></span>
+                    <?php endif; ?>
+                </a>
                 <div class="avatar-box">
                     <div class="avatar-badge">AH</div>
                     <div>

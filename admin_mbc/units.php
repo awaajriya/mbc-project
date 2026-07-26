@@ -155,9 +155,13 @@ include 'header.php';
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div>
-                <label style="font-size: 13px; font-weight: 600;">Ikon (Font Awesome)</label>
-                <input type="text" name="icon_class" value="<?= $icon_class; ?>" placeholder="Contoh: fa-book" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
-                <small style="font-size: 11px; color: var(--text-muted);">Masukkan nama kelas FontAwesome tanpa prefix <code>fa-solid</code>.</small>
+                <label style="font-size: 13px; font-weight: 600;">Ikon</label>
+                <select name="icon_class" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 6px;">
+                    <option value="fa-book" <?= $icon_class === 'fa-book' ? 'selected' : ''; ?>>Buku (fa-book)</option>
+                    <option value="fa-desktop" <?= $icon_class === 'fa-desktop' ? 'selected' : ''; ?>>Komputer (fa-desktop)</option>
+                    <option value="fa-star" <?= $icon_class === 'fa-star' ? 'selected' : ''; ?>>Bintang (fa-star)</option>
+                    <option value="fa-rocket" <?= $icon_class === 'fa-rocket' ? 'selected' : ''; ?>>Roket (fa-rocket)</option>
+                </select>
             </div>
             <div>
                 <label style="font-size: 13px; font-weight: 600;">Status</label>
@@ -218,7 +222,6 @@ include 'header.php';
                 <td><a href="<?= htmlspecialchars($buttonLink); ?>" target="_blank"><?= htmlspecialchars($meta['judul_tombol']); ?></a></td>
                 <td><?= htmlspecialchars($meta['status']); ?></td>
                 <td>
-                    <a href="<?= htmlspecialchars($buttonLink); ?>" target="_blank" style="color:var(--text-muted); margin-right:10px;"><i class="fa-regular fa-eye"></i></a>
                     <a href="units.php?edit=<?= $row['id_unit']; ?>" style="color:var(--text-muted); margin-right:10px;"><i class="fa-regular fa-pen-to-square"></i></a>
                     <a href="units.php?hapus=<?= $row['id_unit']; ?>" onclick="return confirm('Hapus unit ini?')" style="color:#ef4444;"><i class="fa-solid fa-trash"></i></a>
                 </td>
