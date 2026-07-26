@@ -1703,16 +1703,16 @@ date_default_timezone_set("Asia/Jakarta");
   <!-- ============ NAVBAR ============ -->
   <header id="site-header">
     <div class="nav-inner">
-      <a href="#home" class="logo">
-        <img src="assets/logo_header.png" alt="MBC Logo" class="logo-img" />
+      <a href="/index.php#home" class="logo">
+        <img src="/assets/logo_header.png" alt="MBC Logo" class="logo-img" />
       </a>
       <nav class="nav-links">
-        <a href="#home" data-en="Home">Beranda</a>
-        <a href="#about" data-en="About">Tentang</a>
+        <a href="/index.php#home" data-en="Home">Beranda</a>
+        <a href="/index.php#about" data-en="About">Tentang</a>
         <div class="has-mega">
           <span class="nav-item" data-en="Business Units">Unit Bisnis</span>
           <div class="mega-menu">
-            <a class="mega-item" href="#units">
+            <a class="mega-item" href="/index.php#units">
               <span class="mi-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke="#fff">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
@@ -1722,7 +1722,7 @@ date_default_timezone_set("Asia/Jakarta");
                 Publikasi, ISBN, jurnal, percetakan
               </p>
             </a>
-            <a class="mega-item" href="#units">
+            <a class="mega-item" href="/index.php#units">
               <span class="mi-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke="#fff">
                   <circle cx="12" cy="12" r="2.5" />
                   <circle cx="5" cy="6" r="2" />
@@ -1736,7 +1736,7 @@ date_default_timezone_set("Asia/Jakarta");
                 Coworking, inkubasi, pelatihan
               </p>
             </a>
-            <a class="mega-item" href="#units">
+            <a class="mega-item" href="/index.php#units">
               <span class="mi-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke="#fff">
                   <rect x="3" y="4" width="18" height="12" rx="2" />
                   <path d="M8 21h8M12 16v5" />
@@ -1749,20 +1749,20 @@ date_default_timezone_set("Asia/Jakarta");
             </a>
           </div>
         </div>
-        <a href="#why" data-en="Why MBC">Mengapa MBC</a>
-        <a href="#projects" data-en="Projects">Proyek</a>
-        <a href="#contact" data-en="Contact">Kontak</a>
+        <a href="/index.php#why" data-en="Why MBC">Mengapa MBC</a>
+        <a href="/index.php#projects" data-en="Projects">Proyek</a>
+        <a href="/index.php#contact" data-en="Contact">Kontak</a>
       </nav>
       <div class="nav-right">
-        <div class="search-wrap" id="searchWrap">
-          <button class="icon-btn" id="searchBtn" aria-label="Search">
+        <form action="/search.php" method="get" class="search-wrap" id="searchWrap">
+          <button type="button" class="icon-btn" id="searchBtn" aria-label="Search">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
               <circle cx="11" cy="11" r="7" />
               <path d="M21 21l-4.3-4.3" />
             </svg>
           </button>
-          <input type="text" placeholder="Cari..." />
-        </div>
+          <input type="text" name="q" placeholder="Cari..." value="<?= htmlspecialchars($_GET['q'] ?? ''); ?>" />
+        </form>
         <div class="lang-switch">
           <button class="lang-btn active" data-lang="id">ID</button>
           <button class="lang-btn" data-lang="en">EN</button>
@@ -1774,7 +1774,7 @@ date_default_timezone_set("Asia/Jakarta");
               d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
           </svg>
         </button>
-        <a href="#contact" class="nav-cta" data-en="Contact Us">Hubungi Kami</a>
+        <a href="/index.php#contact" class="nav-cta" data-en="Contact Us">Hubungi Kami</a>
         <a href="admin_mbc/login.php" class="nav-cta" data-en="Login">Login</a>
       </div>
     </div>

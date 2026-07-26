@@ -21,12 +21,12 @@
         terintegrasi di bawah Politeknik Mardira Indonesia.
       </p>
       <div class="hero-actions">
-        <a href="#units" class="btn btn-primary"><span data-en="Explore Business">Jelajahi Bisnis</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg></a>
-        <a href="#contact" class="btn btn-ghost"><span data-en="Contact Us">Hubungi Kami</span></a>
-      </div>
+          <a href="#units" class="btn btn-primary"><span data-en="Explore Business">Jelajahi Bisnis</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg></a>
+          <a href="landing/message.php" class="btn btn-ghost"><span data-en="Get Started">Mulai Sekarang</span></a>
+        </div>
     </div>
 
     <div class="hero-visual" id="heroVisual">
@@ -416,65 +416,40 @@
     </div>
     
     <div class="masonry">
-      <div class="proj-card" data-animate="fade-up">
-        <div class="proj-media h-tall m-navy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-          </svg>
+      <?php
+      // Tampilkan proyek unggulan dari database
+      require_once __DIR__ . '/../admin_mbc/koneksi.php';
+      $res = mysqli_query($koneksi, "SELECT * FROM proyek_unggulan ORDER BY id DESC");
+      if ($res && mysqli_num_rows($res) > 0):
+        while ($p = mysqli_fetch_assoc($res)):
+          $sub = htmlspecialchars($p['sub_unit']);
+          $judul = htmlspecialchars($p['judul']);
+          $desc = htmlspecialchars($p['deskripsi']);
+          $link = htmlspecialchars($p['link'] ?: '#');
+          $color = htmlspecialchars($p['bg_color'] ?: '#0f172a');
+          $icon = htmlspecialchars($p['icon_class'] ?: 'fa-book');
+      ?>
+        <div class="proj-card" data-animate="fade-up">
+          <div class="proj-media" style="background:<?= $color; ?>;display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid <?= $icon; ?>" style="font-size:28px;color:#fff;padding:18px;"></i>
+          </div>
+          <div class="proj-body">
+            <span class="proj-cat"><?= $sub; ?></span>
+            <h4><?= $judul; ?></h4>
+            <p><?= $desc; ?></p>
+            <a href="<?= $link; ?>" class="proj-link"><span data-en="View Case Study">Lihat Studi Kasus</span> →</a>
+          </div>
         </div>
-        <div class="proj-body">
-          <span class="proj-cat" data-en="Mardira Press">Mardira Press</span>
-          <h4 data-en="National Accredited Journal">Jurnal Ilmiah Terakreditasi Nasional</h4>
-          <p data-en="Supporting lecturers and students in publishing accredited research.">Mendukung dosen dan mahasiswa menerbitkan riset terakreditasi.</p>
-          <a href="#" class="proj-link"><span data-en="View Case Study">Lihat Studi Kasus</span> →</a>
+      <?php
+        endwhile;
+      else:
+      ?>
+        <div class="proj-card">
+          <div class="proj-body">
+            <p>Belum ada proyek unggulan.</p>
+          </div>
         </div>
-      </div>
-      <div class="proj-card" data-animate="fade-up">
-        <div class="proj-media m-blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="2.5" />
-            <circle cx="5" cy="6" r="2" />
-            <circle cx="19" cy="6" r="2" />
-            <circle cx="5" cy="18" r="2" />
-            <circle cx="19" cy="18" r="2" />
-          </svg>
-        </div>
-        <div class="proj-body">
-          <span class="proj-cat" data-en="Mardira Hub">Mardira Hub</span>
-          <h4 data-en="MSME Digitalization Batch 3">Inkubasi Digitalisasi UMKM Batch 3</h4>
-          <p data-en="30 MSMEs onboarded to digital sales channels.">30 UMKM diarahkan ke kanal penjualan digital.</p>
-          <a href="#" class="proj-link"><span data-en="View Case Study">Lihat Studi Kasus</span> →</a>
-        </div>
-      </div>
-      <div class="proj-card" data-animate="fade-up">
-        <div class="proj-media h-tall m-gold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="4" width="18" height="12" rx="2" />
-            <path d="M8 21h8M12 16v5" />
-            <path d="M8.5 8.5L7 10l1.5 1.5M12.5 8.5L14 10l-1.5 1.5" />
-          </svg>
-        </div>
-        <div class="proj-body">
-          <span class="proj-cat" data-en="Mardira IT Consulting">Mardira IT Consulting</span>
-          <h4 data-en="Campus Digital System Integration">Integrasi Sistem Digital Kampus</h4>
-          <p data-en="A unified academic and administration platform built for scale.">Platform akademik dan administrasi terpadu yang dibangun untuk berkembang.</p>
-          <a href="#" class="proj-link"><span data-en="View Case Study">Lihat Studi Kasus</span> →</a>
-        </div>
-      </div>
-      <div class="proj-card" data-animate="fade-up">
-        <div class="proj-media m-navy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2l3 6 6.5 1-4.7 4.6L18 20l-6-3.4L6 20l1.2-6.4L2.5 9 9 8z" />
-          </svg>
-        </div>
-        <div class="proj-body">
-          <span class="proj-cat" data-en="Mardira Hub">Mardira Hub</span>
-          <h4 data-en="AgriTech Startup Cohort">Kohort Startup AgriTech Binaan</h4>
-          <p data-en="From idea to funded pilot in six months.">Dari ide menjadi proyek percontohan berdana dalam enam bulan.</p>
-          <a href="#" class="proj-link"><span data-en="View Case Study">Lihat Studi Kasus</span> →</a>
-        </div>
-      </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
@@ -561,7 +536,7 @@
   <div class="cta-section" data-animate="zoom">
     <h2 data-en="Ready to Build Your Future Business?">Siap Membangun Bisnis Masa Depan Anda?</h2>
     <p data-en="Join the Mardira Business Center ecosystem today.">Bergabunglah dengan ekosistem Mardira Business Center sekarang.</p>
-    <a href="#" class="btn btn-primary"><span data-en="Get Started">Mulai Sekarang</span>
+    <a href="landing/message.php" class="btn btn-primary"><span data-en="Get Started">Mulai Sekarang</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M5 12h14M13 5l7 7-7 7" />
       </svg></a>
